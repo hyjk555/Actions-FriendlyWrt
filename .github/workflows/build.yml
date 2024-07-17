@@ -7,6 +7,10 @@ jobs:
     runs-on: ubuntu-20.04
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
+    
+    - name: ssh Debug Session
+      uses: csexton/debugger-action@master
+    
     - name: 生成编译标签
       id: release_tag
       run: |
