@@ -17,6 +17,9 @@ jobs:
         release_tag="FriendlyWrt-$(date +%Y-%m-%d)"
         echo "##[set-output name=release_tag;]$release_tag"
 
+        echo "执行 touch /tmp/keepalive 避免15分钟掉线"
+        touch /tmp/keepalive
+
     - name: 创建编译标签名称
       id: release
       uses: softprops/action-gh-release@v1
