@@ -8,15 +8,6 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
     
-    - name: ssh Debug Session
-      uses: csexton/debugger-action@master
-
-    - name: 避免15分钟掉线
-      run: |
-        cd project
-        echo "执行 touch /tmp/keepalive 避免15分钟掉线"
-        touch /tmp/keepalive
-    
     - name: 生成编译标签
       id: release_tag
       run: |
@@ -314,3 +305,14 @@ jobs:
         asset_name: ${{ steps.config.outputs.img_src_filename }}
         tag: ${{ needs.prepare_release.outputs.release_tag }}
         overwrite: true
+
+
+    - name: ssh Debug Session
+      uses: csexton/debugger-action@master
+
+    - name: 避免15分钟掉线
+      run: |
+        cd project
+        echo "执行 touch /tmp/keepalive 避免15分钟掉线"
+        touch /tmp/keepalive
+    
