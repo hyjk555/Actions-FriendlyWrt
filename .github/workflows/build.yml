@@ -33,7 +33,7 @@ jobs:
     strategy:
       matrix:
         VERSION: [23.05]
-        SET: [docker, non-docker]
+        SET: [docker]
 
     steps:
     - name: 获取源码
@@ -162,7 +162,7 @@ jobs:
       matrix:
         VERSION: [23.05]
         CPU: [rk3588]
-        SET: [docker, non-docker]
+        SET: [docker]
     steps:
     - name: Checkout
       uses: actions/checkout@main
