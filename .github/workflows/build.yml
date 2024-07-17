@@ -106,10 +106,10 @@ jobs:
       continue-on-error: true
       run: |
         cd project/friendlywrt
-        make -j$(nproc) || make -j1 V=s
+        make -j$(nproc) 
         echo $?
 
-    - name: Check the result and try again
+    - name: 检查编译结果
       if: steps.compile.outcome == 'failure'
       run: |
         cd project/friendlywrt
