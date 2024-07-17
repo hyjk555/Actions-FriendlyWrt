@@ -127,13 +127,6 @@ jobs:
               ${FRIENDLYWRT_SRC}/${FRIENDLYWRT_PACKAGE_DIR}
         
         echo "##[set-output name=rootfs_filename;]$rootfs_filename"
-        
-        
-        rootfs_src_filename="rootfs-src-friendlywrt-${{ matrix.VERSION }}${SUFFIX}.tgz"
-        tar cvzf ../artifact/${rootfs_src_filename} *
-        
-        echo "##[set-output name=rootfs_src_filename;]$rootfs_src_filename"
-        
 
 
     - name: 上传rootfs到github release
@@ -142,15 +135,6 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ./artifact/${{ steps.create_rootfs_package.outputs.rootfs_filename }}
         asset_name: ${{ steps.create_rootfs_package.outputs.rootfs_filename }}
-        tag: ${{ needs.prepare_release.outputs.release_tag }}
-        overwrite: true
-
-    - name: 上传IMG源码包到github release
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ./artifact/${{ steps.create_rootfs_package.outputs.rootfs_src_filename }}
-        asset_name: ${{ steps.create_rootfs_package.outputs.rootfs_src_filename }}
         tag: ${{ needs.prepare_release.outputs.release_tag }}
         overwrite: true
 
@@ -281,28 +265,12 @@ jobs:
         cd ../artifact/
         gzip *.img
         
-        img_src_filename="img-src-friendlywrt-${{ matrix.VERSION }}${SUFFIX}.tgz"
-        tar cvzf ../artifact/${img_src_filename} *
-        
-        echo "##[set-output name=img_src_filename;]$img_src_filename"
-        
-  
-
     - name: 上传SD卡镜像到github release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ./artifact/${{ steps.config.outputs.img_filename }}.gz
         asset_name: ${{ steps.config.outputs.img_filename }}.gz
-        tag: ${{ needs.prepare_release.outputs.release_tag }}
-        overwrite: true
-
-    - name: 上传SD卡源码包到github release
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ./artifact/${{ steps.config.outputs.img_src_filename }}
-        asset_name: ${{ steps.config.outputs.img_src_filename }}
         tag: ${{ needs.prepare_release.outputs.release_tag }}
         overwrite: true
 
