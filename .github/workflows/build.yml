@@ -83,15 +83,15 @@ jobs:
         source ../scripts/custome_config.sh
 
 
-    - name: 开启调试ssh
-      uses: csexton/debugger-action@master
-
     - name: 避免15分钟掉线
       run: |
         cd project
         echo "执行 touch /tmp/keepalive 避免15分钟掉线"
         touch /tmp/keepalive
-    
+        
+    - name: 开启调试ssh
+      uses: csexton/debugger-action@master
+
 
     - name: 初始化配置
       run: |
